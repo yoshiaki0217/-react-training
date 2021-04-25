@@ -6,14 +6,24 @@ export const Contact = ()=>{
   const [mail, setMail] = useLocalStorage("mail", "");
   const [nameAlert, setNameAlert] = useState(false);
   const [mailAlert, setMailAlert] = useState(false);
+  const [nameError, setNameError] = useState(true);
+  const [mailError, setMailError] = useState(false);
 
   const onClickAdd = () => {
+        // 両方がバリデーションを通らないと送信できないよ
+    if (nameError === mailError) {
+      setName("")
+      setMail("")
+    }
     // 送信ボタンを押したあと、名前が入力されているかバリデーションをかける。
     if (!name) {
       nameAlert || setNameAlert(true); // nameAlertがfalseだったら、右側を実行する。
+      setNameError(false)
     } else {
       nameAlert && setNameAlert(false); // nameAlertがtrueだったら、右側を実行する。名前必須のエラーメッセージが出ていた場合、名前を入力して登録ボタンを押すと、メッセージが消える。
       localStorage.setItem("Namedata",name );
+      // setNameAlert(true);
+      setNameError(true)
     }
     if (!mail) {
       mailAlert || setMailAlert(true); // nameAlertがfalseだったら、右側を実行する。
@@ -22,13 +32,10 @@ export const Contact = ()=>{
     }else {
       mailAlert && setMailAlert(false); // nameAlertがtrueだったら、右側を実行する。名前必須のエラーメッセージが出ていた場合、名前を入力して登録ボタンを押すと、メッセージが消える。
       localStorage.setItem("Mailedata",mail );
+      // setMailAlert(true);
+      setMailError(true)
     }
 
-    // 両方がバリデーションを通らないと送信できないよ
-    if (nameAlert === !mailAlert) {
-      setName("")
-      setMail("")
-    }
   };
 
   return (
