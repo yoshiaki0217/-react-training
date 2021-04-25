@@ -65,10 +65,10 @@ function useLocalStorage(key, initialValue) {
     try {
       // キーでローカルストレージから取得
       const item = window.localStorage.getItem(key);
-      // 保存されたjsonを解析するか、何も返さない場合はinitialValueを返します
+      // 保存されたjsonを解析するか、何も返さない場合は初期値を返す
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      // エラーの場合もinitialValueを返します
+      // エラーの場合も初期値を返します
       console.log(error);
       return initialValue;
     }
